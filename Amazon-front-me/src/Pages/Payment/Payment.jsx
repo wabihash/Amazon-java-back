@@ -33,16 +33,26 @@ function Payment() {
   };
   const handlePayment =  async(event) => {
     event.preventDefault();
+    setCardError(null);
     try {
+      if (!stripe || !elements) {
+        throw new Error("Stripe has not finished loading yet.");
+      }
+
       setProcessing(true)
       // Create a payment intent  on the backend || functions -----> payment/create?total=1000
       const response = await instance({
         method: "post",
         url: `/payment/create?total=${total * 100}`
      })
-      const clientSecret = response.data?.clientSecret;
+      const clientSecret = response.data?.clientSecret ?? response.data?.client_secret;
+
+      if (!clientSecret) {
+        throw new Error("Missing Stripe client secret from the backend.");
+      }
+
       // client side conformation(react-side)
-      const paymentIntent = await stripe.confirmCardPayment(
+      const { error, paymentIntent } = await stripe.confirmCardPayment(
         clientSecret, {
         payment_method: {
 
@@ -50,27 +60,38 @@ function Payment() {
         }
       }
       )
+
+      if (error) {
+        throw new Error(error.message || "Payment confirmation failed.");
+      }
+
+      if (!paymentIntent) {
+        throw new Error("Stripe did not return a payment intent.");
+      }
+
       await db
   .collection("users")
   .doc(user.uid)
   .collection("orders")
-  .doc(paymentIntent.paymentIntent.id)
+  .doc(paymentIntent.id)
   .set({
     basket: basket,
-    amount: paymentIntent.paymentIntent.amount,
-    created: paymentIntent.paymentIntent.created,
+    amount: paymentIntent.amount,
+    created: paymentIntent.created,
   });
       // empty the basket after payment
       dispatch({ type: Type.EMPTY_BASKET });
       setSuccess(true);
-      setProcessing(false);
       // redirect to orders page after success
       setTimeout(() => {
         navigate("/orders", { replace: true });
       }, 2000);
     }
-     catch {
-       setProcessing(false);
+     catch (error) {
+       setCardError(error?.message || "Payment failed. Please try again.");
+    }
+    finally {
+      setProcessing(false);
     }
   }
     return (

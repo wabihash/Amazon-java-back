@@ -1,14 +1,49 @@
 import axios from "axios";
+import { auth } from "../Utility/Firebase";
+
+const waitForCurrentUser = () =>
+  new Promise((resolve) => {
+    if (auth.currentUser) {
+      resolve(auth.currentUser);
+      return;
+    }
+
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      unsubscribe();
+      resolve(user);
+    });
+  });
+
+const getFirebaseToken = async () => {
+  const currentUser = auth.currentUser || (await waitForCurrentUser());
+
+  if (!currentUser) {
+    return null;
+  }
+
+  return currentUser.getIdToken();
+};
 
 const instance = axios.create({
-  // 1. Local Java Backend Instance
-  baseURL: "http://localhost:8080",
-  
-  // 2. Render Instance of the backend (Commented out for local testing)
-  // baseURL: "https://amazon-me-rd5s.onrender.com"
-  
-  // 3. Old Firebase Function Instance (Not active)
-  // baseURL: "http://127.0.0.1:5001/backend-22770/us-central1/api",
+  // Use the Vite dev proxy so browser requests stay same-origin in development.
+  // Override this in .env when your backend is deployed somewhere else.
+  baseURL: import.meta.env.VITE_API_BASE_URL || "/api",
 });
+
+instance.interceptors.request.use(
+  async (config) => {
+    const token = await getFirebaseToken();
+
+    if (token) {
+      config.headers = {
+        ...config.headers,
+        Authorization: `Bearer ${token}`,
+      };
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 export default instance;
