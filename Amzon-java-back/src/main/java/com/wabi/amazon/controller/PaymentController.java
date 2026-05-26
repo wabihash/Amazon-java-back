@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5175")
 public class PaymentController {
 
     private final StripeService stripeService;
