@@ -4,3 +4,5 @@ target/
 serviceAccountKey.json
 .DS_Store
 .vscode/
+Amzon-java-back/backend_err.log
+Amzon-java-back/backend_out.log
