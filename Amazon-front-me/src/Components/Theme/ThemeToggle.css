@@ -1,0 +1,43 @@
+.theme__toggle {
+    width: 60px;
+    height: 30px;
+    background-color: #232f3e;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease;
+    border: 1px solid #37475a;
+}
+
+.theme__toggle.dark {
+    background-color: #ff9900;
+    border-color: #e48900;
+}
+
+.toggle__ball {
+    width: 22px;
+    height: 22px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.theme__toggle.dark .toggle__ball {
+    transform: translateX(30px);
+}
+
+.icon {
+    font-size: 12px;
+    color: #232f3e;
+}
+
+.theme__toggle.dark .icon {
+    color: #ff9900;
+}

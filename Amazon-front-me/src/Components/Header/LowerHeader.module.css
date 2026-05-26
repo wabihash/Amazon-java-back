@@ -1,0 +1,128 @@
+/* ===== LOWER HEADER ===== */
+.lower__container {
+  background-color: #232f8e;
+  color: white;
+  position: relative;
+}
+
+/* Desktop: horizontal nav list */
+.nav__list {
+  display: flex;
+  list-style: none;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.nav__list li {
+  padding: 8px 14px;
+  white-space: nowrap;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.nav__list li:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+.nav__list li a {
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+}
+
+/* Desktop: "All" + hamburger hidden */
+.hamburger__btn {
+  display: none;
+}
+
+.all__item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ===== MOBILE DROPDOWN MENU ===== */
+.mobile__menu {
+  display: none; /* hidden on desktop */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 240px;
+  background-color: #1a1a2e;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s ease, opacity 0.25s ease;
+  opacity: 0;
+  border-radius: 0 0 8px 0;
+}
+
+.mobile__menu.open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.mobile__menu a {
+  display: block;
+  padding: 13px 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  transition: background-color 0.2s ease, padding-left 0.2s ease;
+}
+
+.mobile__menu a:hover {
+  background-color: #232f8e;
+  padding-left: 28px;
+}
+
+.mobile__menu a:last-child {
+  border-bottom: none;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  /* Show hamburger, hide desktop list */
+  .hamburger__btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    width: 100%;
+  }
+
+  .hamburger__btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .hamburger__icon {
+    font-size: 22px;
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+
+  /* Hide all desktop nav items */
+  .nav__list {
+    display: none;
+  }
+
+  /* Show dropdown */
+  .mobile__menu {
+    display: flex;
+  }
+}

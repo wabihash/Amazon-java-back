@@ -1,0 +1,94 @@
+.payment_header{
+padding: 20px;
+text-align: center;
+font-size: 24px;
+background-color: rgb(244,237,237) ;
+}
+.payment{
+padding: 30px;
+}
+.flex {
+  display: flex;
+  gap: 20px;
+  padding: 30px;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .flex {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .flex h3 {
+    min-width: 250px;
+  }
+}
+
+.flex img {
+  width: 80px !important;
+}
+
+.flex div {
+  height: auto !important;
+  flex: 1;
+}
+
+
+.payment_card_container {
+  width: 100%;
+  max-width: 350px;
+}
+
+.payment_price_container {
+  padding: 20px 0;
+}
+
+.payment_price_container > div {
+  display: flex;
+  font-size: 18px;
+  gap: 10px;
+}
+
+.payment_details button {
+  margin-top: 15px;
+  width: 100%;
+  border: none;
+  background-color: #febd69; /* Amazon Yellow */
+  border-radius: 5px;
+  padding: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.payment_details button:hover {
+  background-color: #f3a847;
+}
+
+.payment_details button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.payment_price_container span {
+  display: flex;
+  gap: 10px;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  color: #333;
+}
+
+.success_msg {
+  padding: 10px;
+  background-color: #e7f4e8;
+  border: 1px solid #2e7d32;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  color: #2e7d32;
+  font-weight: bold;
+  font-size: 0.9rem;
+}

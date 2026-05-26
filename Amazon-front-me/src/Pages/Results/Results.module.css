@@ -1,0 +1,47 @@
+.results_section {
+  padding: 20px;
+}
+
+.results_title {
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: #0f1111;
+}
+
+.results_category {
+  font-size: 14px;
+  color: #565959;
+  margin-bottom: 16px;
+}
+
+.results_section hr {
+  border: none;
+  border-top: 1px solid #e7e7e7;
+  margin-bottom: 20px;
+}
+
+.products_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.no_results {
+  text-align: center;
+  font-size: 18px;
+  color: #565959;
+  padding: 40px;
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 600px) {
+  .products_container {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .results_title {
+    font-size: 24px;
+  }
+}
