@@ -25,6 +25,9 @@ public class StripeService implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
         String key = System.getenv("STRIPE_SECRET");
+        if (key == null || key.isBlank()) {
+            key = System.getenv("STRIPE_KEY");
+        }
         if (key != null && !key.isBlank()) {
             Stripe.apiKey = key;
         }
